@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:snowflake="http://www.mulesoft.org/schema/mule/snowflake"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/snowflake http://www.mulesoft.org/schema/mule/snowflake/current/mule-snowflake.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<configuration-properties doc:name="Env Configuration properties" doc:id="7501637b-230a-4f68-b78b-46cf4fc8271f" file="properties/${env}.properties" doc:description="Env specific properties" />
+    <configuration-properties doc:name="Default Configuration properties" doc:id="b65ed339-fe0d-4799-ace2-5454d3ad7c6c" file="properties/default.properties" doc:description="deafult properties" />
+    <secure-properties:config name="secure-properties-config-env" doc:name="Secure Properties Config" doc:id="64d8de64-f246-4c6f-8ec4-513e7cee66df" key="${secure.key}" file="properties/${env}-secure.properties" doc:description="Env specific secure properties" />
+    
+
+</mule>
