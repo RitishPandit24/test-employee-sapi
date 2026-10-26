@@ -1,0 +1,51 @@
+#%RAML 1.0
+title: employee-mgmt-sapi
+description: API to retrieve employee information
+version: v1
+mediaType: application/json
+
+types:
+  ErrorResponse:
+    type: object
+    properties:
+      code:
+        type: string
+        example: EMPLOYEE_NOT_FOUND
+      message:
+        type: string
+        example: Employee not found
+
+traits:
+  client-id-required:
+    headers:
+      client_id:
+        type: string
+        required: true
+      client_secret:
+        type: string
+        required: true
+    responses:
+      401:
+        description: Unauthorized - Invalid or missing client credentials
+      403:
+        description: Forbidden - Contract not approved
+
+/employees:
+  is: [client-id-required]
+  get:
+    description: Retrieve all employees
+    responses:
+      200:
+        body:
+          application/json:
+      401:
+        description: Missing or invalid client credentials
+        body:
+          application/json:
+      500:
+        body:
+          application/json:
+            type: ErrorResponse
+            example:
+              code: INTERNAL_SERVER_ERROR
+              message: Unable to retrieve employees
