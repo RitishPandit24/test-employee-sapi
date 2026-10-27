@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
-	xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
-http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd">
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	
 	<sub-flow name="implementationSub_Flow" doc:id="4113c677-ac00-4b41-9ca2-1d98f6f86a6d" >
 		<logger level="INFO" doc:name="Logger" doc:id="67f78550-8077-4b4b-8792-643a1f226ea5" message="implementationSub_Flow - Start"/>
-		<http:request method="GET" doc:name="Request" doc:id="c725e28e-bbd4-4da3-81e1-6ba86d9df2c1" config-ref="HTTP_Request_configuration1" path="${dummy.path}"/>
+		<!-- [STUDIO:"Request"]<http:request method="GET" doc:name="Request" doc:id="c725e28e-bbd4-4da3-81e1-6ba86d9df2c1" config-ref="HTTP_Request_configuration1" path="${dummy.path}"/> [STUDIO] -->
+		<db:select doc:name="Select" doc:id="fb8a9ac5-739b-435e-8a18-9e2420e2225b" config-ref="Database_Config">
+			<db:sql ><![CDATA[SELECT * FROM EmployeeCertifications]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="d643ca08-053a-46f3-ac3f-b4d27a1d3f4e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="371da640-5dc7-4235-8384-718729f31ca3" message="implementationSub_Flow - End"/>
 	</sub-flow>
 </mule>

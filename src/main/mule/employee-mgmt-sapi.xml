@@ -90,6 +90,17 @@ output application/json
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="59743971-2397-4435-bbfa-97914d3207f7" type="ANY">
+				<ee:transform doc:name="Transform Message" doc:id="739c7c9d-1874-4068-8db4-5ec8e20891ca" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.detailedDescription]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="34a7292f-a753-4275-96c9-07b8a3d2a1d5" message="#[payload]"/>
+			</on-error-propagate>
         </error-handler>
     </flow>
     <flow name="get:\employees:employee-mgmt-sapi-config">
