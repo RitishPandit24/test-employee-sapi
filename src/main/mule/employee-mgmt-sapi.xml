@@ -96,8 +96,14 @@ output application/json
 						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-error.detailedDescription]]></ee:set-payload>
+message : error.description default error.detailedDescription]]></ee:set-payload>
 					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
+output application/java
+---
+"401"]]></ee:set-variable>
+					</ee:variables>
 				</ee:transform>
 				<logger level="INFO" doc:name="Logger" doc:id="34a7292f-a753-4275-96c9-07b8a3d2a1d5" message="#[payload]"/>
 			</on-error-propagate>
